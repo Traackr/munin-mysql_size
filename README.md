@@ -8,9 +8,9 @@ Install
 
 To install:
 
-	sudo cp mysql_size /usr/local/share/munin/plugins/
-	sudo chmod +x /usr/local/share/munin/plugins/mysql_size
-	sudo ln -s /usr/local/share/munin/plugins/mysql_size /etc/munin/plugins/mysql_size
+	sudo cp mysql_size /usr/share/munin/plugins
+	sudo chmod +x /usr/share/munin/plugins/mysql_size
+	sudo ln -s /usr/share/munin/plugins/mysql_size /etc/munin/plugins/mysql_size
 
 
 
@@ -20,6 +20,6 @@ Configuration
 Edit /etc/munin/plugin-conf.d/munin-node
 
 	[mysql_size]
-		env.username <database-user>
-		env.password <database-password>
-		env.database <database-name>
+	env.username <database-user>
+	env.password <database-password>
+	env.database <database-name>
