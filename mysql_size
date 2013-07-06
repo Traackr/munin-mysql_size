@@ -6,7 +6,7 @@ case $1 in
 graph_title Database size
 graph_args --base 1000 -l 0
 graph_vlabel megabytes
-graph_category database
+graph_category mysql2
 graph_info Size of total database, data, and indexes size in megabytes.
 total.label total
 total.info Total size of database. Combination of data and indexes.
