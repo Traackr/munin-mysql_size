@@ -1,0 +1,40 @@
+#!/bin/sh
+
+case $1 in
+   config)
+        cat <<'EOM'
+graph_title Database size
+graph_args --base 1000 -l 0
+graph_vlabel megabytes
+graph_category database
+graph_info Size of total database, data, and indexes size in megabytes.
+total.label total
+total.info Total size of database. Combination of data and indexes.
+data.label data
+data.info Size of data only.
+index.label index
+index.info Size of indexes only.
+
+EOM
+        exit 0;;
+esac
+
+USERNAME=${username:-root}
+PASSWORD=${pgassword:-}
+DATABASE=${database:=myql}
+
+
+echo -n "total.value "
+mysql -u ${USERNAME} -p${PASSWORD} -D ${DATABASE} --skip-column-names<<EOFMYSQL
+select sum(data_length+index_length)/1024/1024 from information_schema.tables;
+EOFMYSQL
+
+echo -n "data.value "
+mysql -u ${USERNAME} -p${PASSWORD} -D ${DATABASE} --skip-column-names<<EOFMYSQL
+select sum(data_length)/1024/1024 from information_schema.tables;
+EOFMYSQL
+
+echo -n "index.value "
+mysql -u ${USERNAME} -p${PASSWORD} -D ${DATABASE} --skip-column-names<<EOFMYSQL
+select sum(index_length)/1024/1024 from information_schema.tables;
+EOFMYSQL
